@@ -121,7 +121,7 @@ function createCard(roommate) {
         <div class="profile-pic"></div>
         <div class="info">
             <p><strong>Name:</strong> ${roommate.name}</p>
-            <p><strong>No.of Roomies I prefer:</strong> ${roommate.room_type}</p>
+            <p><strong>No.of Roomies I prefer:</strong> ${roommate.bed_count_pref}</p>
             <p><strong>Branch:</strong> ${roommate.branch}</p>
             <p><strong>Special Preferences:</strong> ${roommate.note}</p>
         </div>
@@ -161,25 +161,25 @@ window.onclick = function(event) {
 
 // Function to filter roommates based on the search query and checkboxes
 function filterRoommates() {
-    const searchQuery = document.getElementById('searchBar').value.toLowerCase();
-    const isVeg = document.getElementById('veg').checked;
-    const is9ptr = document.getElementById('9ptr').checked;
-    const isMorning = document.getElementById('morning').checked;
+    var searchQuery = document.getElementById('searchBar').value.toLowerCase();
+    var isVeg = document.getElementById('veg').checked;
+    var is9ptr = document.getElementById('9ptr').checked;
+        var ismrng = document.getElementById('morning').checked;
 
-    // Apply filter conditions
-    const filteredRoommates = roommates.filter(roommate => {
-        const matchesSearchQuery = roommate.name.toLowerCase().includes(searchQuery) ||
-                                   roommate.branch.toLowerCase().includes(searchQuery) ||
-                                   roommate.special.toLowerCase().includes(searchQuery);
-        const matchesVeg = !isVeg || roommate.special.toLowerCase().includes('veg');
-        const matches9ptr = !is9ptr || roommate.special.toLowerCase().includes('9');
-        const matchesMorning = !isMorning || roommate.special.toLowerCase().includes('morning');
-
+    // Update this logic as needed to match your categories
+    var filteredRoommates = roommates.filter(function(roommate) {
+        var matchesSearchQuery = roommate.name.toLowerCase().includes(searchQuery) ||
+                                 roommate.branch.toLowerCase().includes(searchQuery) ||
+                                 roommate.note.toLowerCase().includes(searchQuery);
+        var matchesVeg = !isVeg || roommate.note.toLowerCase().includes('veg');
+        var matches9ptr = !is9ptr|| roommate.note.toLowerCase().includes('9');
+           var matchesMorning = !ismrng|| roommate.special.toLowerCase().includes('morning'); 
         return matchesSearchQuery && matchesVeg && matches9ptr && matchesMorning;
     });
-
+    
     displayRoommates(filteredRoommates);
 }
+
 
 // Setup event listeners and initial display
 document.addEventListener('DOMContentLoaded', function () {
